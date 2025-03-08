@@ -154,7 +154,7 @@ extension SQLSpecificExpressible {
     }
 }
 
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
 extension SQLJSONExpressible {
     /// The `->>` SQL operator.
     ///

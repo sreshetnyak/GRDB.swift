@@ -79,7 +79,7 @@ public final class TableAlteration {
         alterations.append(.addColumnLiteral(literal))
     }
     
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
     /// Renames a column.
     ///
     /// For example:

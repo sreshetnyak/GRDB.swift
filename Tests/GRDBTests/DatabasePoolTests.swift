@@ -1,9 +1,9 @@
 // Import C SQLite functions
-#if SWIFT_PACKAGE
-import GRDBSQLite
-#elseif GRDBCIPHER
+#if canImport(SQLCipher)
 import SQLCipher
-#elseif !GRDBCUSTOMSQLITE && !GRDBCIPHER
+#elseif canImport(GRDBSQLite)
+import GRDBSQLite
+#elseif canImport(SQLite3)
 import SQLite3
 #endif
 
@@ -50,7 +50,7 @@ class DatabasePoolTests: GRDBTestCase {
             XCTAssertTrue(fm.fileExists(atPath: dbPool.path + "-wal"))
             XCTAssertTrue(fm.fileExists(atPath: dbPool.path + "-shm"))
 
-#if SQLITE_ENABLE_SNAPSHOT || (!GRDBCUSTOMSQLITE && !GRDBCIPHER)
+#if SQLITE_ENABLE_SNAPSHOT || (!GRDBCUSTOMSQLITE && !canImport(SQLCipher))
             // A non-empty wal file makes sure ValueObservation can use wal snapshots.
             // See <https://github.com/groue/GRDB.swift/issues/1383>
             let walURL = URL(fileURLWithPath: dbPool.path + "-wal")
@@ -74,7 +74,7 @@ class DatabasePoolTests: GRDBTestCase {
                 XCTAssertTrue(fm.fileExists(atPath: dbPool.path + "-wal"))
                 XCTAssertTrue(fm.fileExists(atPath: dbPool.path + "-shm"))
                 
-#if SQLITE_ENABLE_SNAPSHOT || (!GRDBCUSTOMSQLITE && !GRDBCIPHER)
+#if SQLITE_ENABLE_SNAPSHOT || (!GRDBCUSTOMSQLITE && !canImport(SQLCipher))
                 // A non-empty wal file makes sure ValueObservation can use wal snapshots.
                 // See <https://github.com/groue/GRDB.swift/issues/1383>
                 let walURL = URL(fileURLWithPath: dbPool.path + "-wal")
@@ -100,7 +100,7 @@ class DatabasePoolTests: GRDBTestCase {
                 XCTAssertTrue(fm.fileExists(atPath: dbPool.path + "-wal"))
                 XCTAssertTrue(fm.fileExists(atPath: dbPool.path + "-shm"))
                 
-#if SQLITE_ENABLE_SNAPSHOT || (!GRDBCUSTOMSQLITE && !GRDBCIPHER)
+#if SQLITE_ENABLE_SNAPSHOT || (!GRDBCUSTOMSQLITE && !canImport(SQLCipher))
                 // A non-empty wal file makes sure ValueObservation can use wal snapshots.
                 // See <https://github.com/groue/GRDB.swift/issues/1383>
                 let walURL = URL(fileURLWithPath: dbPool.path + "-wal")
@@ -123,7 +123,7 @@ class DatabasePoolTests: GRDBTestCase {
             XCTAssertTrue(fm.fileExists(atPath: dbPool.path + "-wal"))
             XCTAssertTrue(fm.fileExists(atPath: dbPool.path + "-shm"))
             
-#if SQLITE_ENABLE_SNAPSHOT || (!GRDBCUSTOMSQLITE && !GRDBCIPHER)
+#if SQLITE_ENABLE_SNAPSHOT || (!GRDBCUSTOMSQLITE && !canImport(SQLCipher))
             // A non-empty wal file makes sure ValueObservation can use wal snapshots.
             // See <https://github.com/groue/GRDB.swift/issues/1383>
             let walURL = URL(fileURLWithPath: dbPool.path + "-wal")

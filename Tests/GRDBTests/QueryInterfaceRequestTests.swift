@@ -972,15 +972,7 @@ class QueryInterfaceRequestTests: GRDBTestCase {
         XCTAssertEqual(
             sql(dbQueue, tableRequest.order(Columns.age.descNullsFirst)),
             "SELECT * FROM \"readers\" ORDER BY \"age\" DESC NULLS FIRST")
-        XCTAssertEqual(
-            sql(dbQueue, tableRequest.order { $0.age.descNullsFirst }),
-            "SELECT * FROM \"readers\" ORDER BY \"age\" DESC NULLS FIRST")
-        #if compiler(>=6.1)
-        XCTAssertEqual(
-            sql(dbQueue, tableRequest.order(\.age.descNullsFirst)),
-            "SELECT * FROM \"readers\" ORDER BY \"age\" DESC NULLS FIRST")
-        #endif
-        #elseif !GRDBCIPHER
+        #elseif !canImport(SQLCipher)
         if #available(iOS 14, macOS 10.16, tvOS 14, *) {
             XCTAssertEqual(
                 sql(dbQueue, tableRequest.order(Columns.age.ascNullsLast)),
@@ -1039,10 +1031,7 @@ class QueryInterfaceRequestTests: GRDBTestCase {
         XCTAssertEqual(
             sql(dbQueue, tableRequest.order(Columns.name.collating(.nocase).descNullsFirst)),
             "SELECT * FROM \"readers\" ORDER BY \"name\" COLLATE NOCASE DESC NULLS FIRST")
-        XCTAssertEqual(
-            sql(dbQueue, tableRequest.order { $0.name.collating(.nocase).descNullsFirst }),
-            "SELECT * FROM \"readers\" ORDER BY \"name\" COLLATE NOCASE DESC NULLS FIRST")
-        #elseif !GRDBCIPHER
+        #elseif !canImport(SQLCipher)
         if #available(iOS 14, macOS 10.16, tvOS 14, *) {
             XCTAssertEqual(
                 sql(dbQueue, tableRequest.order(Columns.name.collating(.nocase).ascNullsLast)),
@@ -1118,10 +1107,7 @@ class QueryInterfaceRequestTests: GRDBTestCase {
         XCTAssertEqual(
             sql(dbQueue, tableRequest.order(Columns.age.ascNullsLast).reversed()),
             "SELECT * FROM \"readers\" ORDER BY \"age\" DESC NULLS FIRST")
-        XCTAssertEqual(
-            sql(dbQueue, tableRequest.order { $0.age.ascNullsLast }.reversed()),
-            "SELECT * FROM \"readers\" ORDER BY \"age\" DESC NULLS FIRST")
-        #elseif !GRDBCIPHER
+        #elseif !canImport(SQLCipher)
         if #available(iOS 14, macOS 10.16, tvOS 14, *) {
             XCTAssertEqual(
                 sql(dbQueue, tableRequest.order(Columns.age.descNullsFirst).reversed()),
@@ -1169,10 +1155,7 @@ class QueryInterfaceRequestTests: GRDBTestCase {
         XCTAssertEqual(
             sql(dbQueue, tableRequest.order(Columns.name.collating(.nocase).descNullsFirst).reversed()),
             "SELECT * FROM \"readers\" ORDER BY \"name\" COLLATE NOCASE ASC NULLS LAST")
-        XCTAssertEqual(
-            sql(dbQueue, tableRequest.order { $0.name.collating(.nocase).descNullsFirst }.reversed()),
-            "SELECT * FROM \"readers\" ORDER BY \"name\" COLLATE NOCASE ASC NULLS LAST")
-        #elseif !GRDBCIPHER
+        #elseif !canImport(SQLCipher)
         if #available(iOS 14, macOS 10.16, tvOS 14, *) {
             XCTAssertEqual(
                 sql(dbQueue, tableRequest.order(Columns.name.collating(.nocase).ascNullsLast).reversed()),

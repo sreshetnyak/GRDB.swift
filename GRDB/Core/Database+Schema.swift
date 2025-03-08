@@ -1,9 +1,9 @@
 // Import C SQLite functions
-#if SWIFT_PACKAGE
-import GRDBSQLite
-#elseif GRDBCIPHER
+#if canImport(SQLCipher)
 import SQLCipher
-#elseif !GRDBCUSTOMSQLITE && !GRDBCIPHER
+#elseif canImport(GRDBSQLite)
+import GRDBSQLite
+#elseif canImport(SQLite3)
 import SQLite3
 #endif
 
@@ -184,7 +184,7 @@ extension Database {
         }
     }
     
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
     /// Returns information about a table or a view
     func table(_ tableName: String) throws -> TableInfo? {
         for schemaIdentifier in try schemaIdentifiers() {
@@ -544,7 +544,7 @@ extension Database {
         // `PrimaryKeyInfo`, which is cached.
         
         // Prefer PRAGMA table_list if available
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
         // Maybe SQLCipher is too old: check actual version
         if sqlite3_libversion_number() >= 3037000 {
             return try self.table(for: table)!.hasRowID
