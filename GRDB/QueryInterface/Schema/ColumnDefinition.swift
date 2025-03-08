@@ -350,7 +350,7 @@ public final class ColumnDefinition {
         return self
     }
     
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
     /// Defines the column as a generated column.
     ///
     /// For example:

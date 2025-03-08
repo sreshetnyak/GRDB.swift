@@ -1,7 +1,7 @@
 // MARK: - Upsert
 
 extension PersistableRecord {
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
     /// Executes an `INSERT ON CONFLICT DO UPDATE` statement.
     ///
     /// The upsert behavior is triggered by a violation of any uniqueness

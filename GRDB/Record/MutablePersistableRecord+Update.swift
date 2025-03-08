@@ -213,7 +213,7 @@ extension MutablePersistableRecord {
 // MARK: - Update and Fetch
 
 extension MutablePersistableRecord {
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
     /// Executes an `UPDATE RETURNING` statement on all columns, and returns a
     /// new record built from the updated row.
     ///
@@ -839,7 +839,7 @@ extension MutablePersistableRecord {
 // MARK: - Internals
 
 extension MutablePersistableRecord {
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
     @inlinable // allow specialization so that empty callbacks are removed
     func updateChangesAndFetch<T>(
         _ db: Database,

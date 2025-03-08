@@ -10,8 +10,8 @@ public func abs(_ value: some SQLSpecificExpressible) -> SQLExpression {
     .function("ABS", [value.sqlExpression])
 }
 
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
-/// The `AVG` SQL aggregate function.
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
+/// The `AVG` SQL function.
 ///
 /// For example:
 ///
@@ -163,8 +163,8 @@ public func max(
     .simpleFunction("MAX", [value1.sqlExpression, value2.sqlExpression] + values.map(\.sqlExpression))
 }
 
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
-/// The `MAX` SQL aggregate function.
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
+/// The `MAX` SQL function.
 ///
 /// For example:
 ///
@@ -224,8 +224,8 @@ public func min(
     .simpleFunction("MIN", [value1.sqlExpression, value2.sqlExpression] + values.map(\.sqlExpression))
 }
 
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
-/// The `MIN` SQL aggregate function.
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
+/// The `MIN` SQL function.
 ///
 /// For example:
 ///
@@ -269,8 +269,8 @@ public func min(_ value: some SQLSpecificExpressible) -> SQLExpression {
 }
 #endif
 
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
-/// The `SUM` SQL aggregate function.
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
+/// The `SUM` SQL function.
 ///
 /// For example:
 ///
@@ -333,8 +333,8 @@ public func sum(_ value: some SQLSpecificExpressible) -> SQLExpression {
 }
 #endif
 
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
-/// The `TOTAL` SQL aggregate function.
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
+/// The `TOTAL` SQL function.
 ///
 /// For example:
 ///

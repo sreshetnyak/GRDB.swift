@@ -44,7 +44,7 @@ public struct FTS3 {
         /// Remove diacritics from Latin script characters. This option matches
         /// the `remove_diacritics=2` tokenizer argument.
         case remove
-        #elseif !GRDBCIPHER
+        #elseif !canImport(SQLCipher)
         /// Remove diacritics from Latin script characters. This option matches
         /// the `remove_diacritics=2` tokenizer argument.
         @available(iOS 14, macOS 10.16, tvOS 14, *) // SQLite 3.27+

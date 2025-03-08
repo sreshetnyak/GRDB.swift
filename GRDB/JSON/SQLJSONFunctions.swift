@@ -1,4 +1,4 @@
-#if GRDBCUSTOMSQLITE || GRDBCIPHER
+#if GRDBCUSTOMSQLITE || canImport(SQLCipher)
 // MARK: - JSON
 
 extension Database {

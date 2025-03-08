@@ -1,10 +1,10 @@
 #if SQLITE_ENABLE_FTS5
 // Import C SQLite functions
-#if SWIFT_PACKAGE
-import GRDBSQLite
-#elseif GRDBCIPHER
+#if canImport(SQLCipher)
 import SQLCipher
-#elseif !GRDBCUSTOMSQLITE && !GRDBCIPHER
+#elseif canImport(GRDBSQLite)
+import GRDBSQLite
+#elseif canImport(SQLite3)
 import SQLite3
 #endif
 
@@ -65,7 +65,7 @@ public struct FTS5 {
         /// option matches the raw "remove_diacritics=2" tokenizer argument,
         /// available from SQLite 3.27.0
         case remove
-        #elseif !GRDBCIPHER
+        #elseif !canImport(SQLCipher)
         /// Remove diacritics from Latin script characters. This
         /// option matches the raw "remove_diacritics=2" tokenizer argument,
         /// available from SQLite 3.27.0
